@@ -1,11 +1,13 @@
-.headerContainer {
+import styled from "styled-components";
+
+export const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 8rem;
-}
+`;
 
-.title {
+export const Title = styled.h1`
   font-size: 2.2rem;
   color: #2e5d89;
-}
+`;

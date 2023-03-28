@@ -10,7 +10,7 @@ import useDebounce from "@/hooks/use-debounce";
 import { fetchWeatherData } from "@/services/weather";
 import { fetchCities } from "@/services/cities";
 
-import CurrentWeather from "@/components/current-weather";
+import CurrentWeather from "@/components/CurrentWeather";
 import Header from "@/components/Header";
 
 import { SearchBarContainer } from "@/styles/styled";

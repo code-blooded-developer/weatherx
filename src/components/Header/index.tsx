@@ -1,10 +1,10 @@
-import styles from "./Header.module.css";
+import { HeaderContainer, Title } from "./styled";
 
 const Header: React.FC = () => {
   return (
-    <header className={styles.headerContainer}>
-      <h1 className={styles.title}>WeatherX</h1>
-    </header>
+    <HeaderContainer>
+      <Title>WeatherX</Title>
+    </HeaderContainer>
   );
 };
 

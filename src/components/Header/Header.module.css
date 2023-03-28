@@ -1,0 +1,11 @@
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 8rem;
+}
+
+.title {
+  font-size: 2.2rem;
+  color: #2e5d89;
+}

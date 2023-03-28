@@ -10,9 +10,8 @@ import useDebounce from "@/hooks/use-debounce";
 import { fetchWeatherData } from "@/services/weather";
 import { fetchCities } from "@/services/cities";
 
-import PlaceType from "@/types/place";
-
 import CurrentWeather from "@/components/current-weather";
+import Header from "@/components/Header";
 
 import styles from "@/styles/Home.module.css";
 
@@ -20,8 +19,9 @@ import "antd/dist/reset.css";
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [weatherData, setWeatherData] = useState();
+  const [weatherData, setWeatherData] = useState(null);
   const [places, setPlaces] = useState<SelectProps<object>["options"]>([]);
+  const [loading, setLoading] = useState(false);
   const debouncedSearchTerm: string = useDebounce<string>(searchTerm, 500);
 
   const fetchPlaces = useCallback(async () => {
@@ -53,11 +53,13 @@ export default function Home() {
   const fetchLocation = () => {
     navigator.geolocation.getCurrentPosition(
       async (position) => {
+        setLoading(true);
         const result = await fetchWeatherData({
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         });
         setWeatherData(result);
+        setLoading(false);
       },
       (err) => {
         console.log(err);
@@ -70,8 +72,10 @@ export default function Home() {
   };
 
   const onCitySelect = async (city: string) => {
+    setLoading(true);
     const result = await fetchWeatherData(city);
     setWeatherData(result);
+    setLoading(false);
   };
 
   return (
@@ -85,33 +89,34 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <div className={styles.searchBarContainer}>
-          <AutoComplete
-            dropdownMatchSelectWidth={252}
-            style={{ width: "100%" }}
-            options={places}
-            onSearch={onCityChange}
-            onSelect={onCitySelect}
-          >
-            <Input
-              placeholder="Search location"
-              size="large"
-              prefix={<SearchOutlined />}
-              suffix={
-                <AimOutlined
-                  style={{ cursor: "pointer" }}
-                  onClick={fetchLocation}
-                />
-              }
-              value={searchTerm}
-            />
-          </AutoComplete>
-        </div>
-        <div className={styles.weatherContainer}>
-          {weatherData && <CurrentWeather weather={weatherData} />}
-        </div>
-      </main>
+      <Header />
+      <div className={styles.searchBarContainer}>
+        <AutoComplete
+          dropdownMatchSelectWidth={252}
+          style={{ width: "100%" }}
+          options={places}
+          onSearch={onCityChange}
+          onSelect={onCitySelect}
+        >
+          <Input
+            placeholder="Search location"
+            size="large"
+            prefix={<SearchOutlined />}
+            suffix={
+              <AimOutlined
+                style={{ cursor: "pointer" }}
+                onClick={fetchLocation}
+              />
+            }
+            value={searchTerm}
+          />
+        </AutoComplete>
+      </div>
+      <div className={styles.weatherContainer}>
+        {(loading || weatherData) && (
+          <CurrentWeather weather={weatherData} loading={loading} />
+        )}
+      </div>
     </>
   );
 }

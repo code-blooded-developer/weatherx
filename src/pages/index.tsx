@@ -13,7 +13,7 @@ import { fetchCities } from "@/services/cities";
 import CurrentWeather from "@/components/current-weather";
 import Header from "@/components/Header";
 
-import styles from "@/styles/Home.module.css";
+import { SearchBarContainer } from "@/styles/styled";
 
 import "antd/dist/reset.css";
 
@@ -90,7 +90,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <div className={styles.searchBarContainer}>
+      <SearchBarContainer>
         <AutoComplete
           dropdownMatchSelectWidth={252}
           style={{ width: "100%" }}
@@ -111,8 +111,8 @@ export default function Home() {
             value={searchTerm}
           />
         </AutoComplete>
-      </div>
-      <div className={styles.weatherContainer}>
+      </SearchBarContainer>
+      <div>
         {(loading || weatherData) && (
           <CurrentWeather weather={weatherData} loading={loading} />
         )}

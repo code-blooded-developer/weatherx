@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
+import { Input, AutoComplete } from 'antd';
 import { SearchOutlined, AimOutlined } from '@ant-design/icons';
-import { Input } from 'antd';
+import type { SelectProps } from 'antd/es/select';
 import Head from 'next/head'
-import { Inter } from 'next/font/google'
 
 import useDebounce from '../hooks/use-debounce';
 
@@ -12,16 +12,14 @@ import styles from '@/styles/Home.module.css'
 
 import 'antd/dist/reset.css';
 
-const inter = Inter({ subsets: ['latin'] })
-
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState('');
   const [weatherData, setWeatherData] = useState();
-  const[places, setPlaces] = useState<PlaceType[]>([]);
+  const[places, setPlaces] = useState<SelectProps<object>['options']>([]);
   const debouncedSearchTerm: string = useDebounce<string>(searchTerm, 500);
 
   const fetchCities = useCallback(async (term: string) => {
-    await fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${term}&type=city&apiKey=${process.env.NEXT_PUBLIC_GEOAPIFY_API_KEY}`)
+    await fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${term}&type=locality&apiKey=${process.env.NEXT_PUBLIC_GEOAPIFY_API_KEY}`)
       .then(res => res.json())
       .then(result => {
         setPlaces(massageGeoData(result));
@@ -38,14 +36,14 @@ export default function Home() {
   );
 
   const massageGeoData = (data: any) => {
-    const cities: PlaceType[] = [];
+    const cities: SelectProps<object>['options'] = [];
     data.features.forEach((feature: any) => {
       if(feature.properties && feature.properties.city) {
         const {city, state, country} = feature.properties;
         cities.push({
-          city,
-          state,
-          country
+          label: `${city}, ${state}, ${country}`,
+          value: `${city}`,
+          key: `${city}-${state}`
         });
       }
     });
@@ -56,7 +54,6 @@ export default function Home() {
     await fetch(`${process.env.NEXT_PUBLIC_OPEN_WEATHER_API_URL}/weather/?lat=${lat}&lon=${lng}&units=metric&APPID=${process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY}`)
       .then(res => res.json())
       .then(result => {
-        console.log(result);
         setWeatherData(result)
       });
   }
@@ -82,14 +79,20 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
+      <AutoComplete
+        dropdownMatchSelectWidth={252}
+        style={{ width: '80%' }}
+        options={places}
+        onSearch={onCityChange}
+      >
         <Input
           placeholder="Search location"
           size='large'
           prefix={<SearchOutlined />}
           suffix={ <AimOutlined style={{cursor: 'pointer'}} onClick={fetchLocation} />}
           value={searchTerm}
-          onChange={(evt) => onCityChange(evt.target.value)}
         />
+      </AutoComplete>
       </main>
     </>
   )

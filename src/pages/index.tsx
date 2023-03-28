@@ -5,12 +5,14 @@ import type { SelectProps } from "antd/es/select";
 import Head from "next/head";
 import uniqWith from "lodash/uniqWith";
 
-import useDebounce from "../hooks/use-debounce";
+import useDebounce from "@/hooks/use-debounce";
 
-import { fetchWeatherData } from "../services/weather";
-import { fetchCities } from "../services/cities";
+import { fetchWeatherData } from "@/services/weather";
+import { fetchCities } from "@/services/cities";
 
-import PlaceType from "../types/place";
+import PlaceType from "@/types/place";
+
+import CurrentWeather from "@/components/current-weather";
 
 import styles from "@/styles/Home.module.css";
 
@@ -55,7 +57,7 @@ export default function Home() {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         });
-        console.log(result);
+        setWeatherData(result);
       },
       (err) => {
         console.log(err);
@@ -69,7 +71,7 @@ export default function Home() {
 
   const onCitySelect = async (city: string) => {
     const result = await fetchWeatherData(city);
-    console.log(result);
+    setWeatherData(result);
   };
 
   return (
@@ -83,27 +85,32 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <AutoComplete
-          dropdownMatchSelectWidth={252}
-          style={{ width: "80%" }}
-          options={places}
-          onSearch={onCityChange}
-          onSelect={onCitySelect}
-        >
-          <Input
-            placeholder="Search location"
-            size="large"
-            prefix={<SearchOutlined />}
-            suffix={
-              <AimOutlined
-                style={{ cursor: "pointer" }}
-                onClick={fetchLocation}
-              />
-            }
-            value={searchTerm}
-          />
-        </AutoComplete>
+      <main>
+        <div className={styles.searchBarContainer}>
+          <AutoComplete
+            dropdownMatchSelectWidth={252}
+            style={{ width: "100%" }}
+            options={places}
+            onSearch={onCityChange}
+            onSelect={onCitySelect}
+          >
+            <Input
+              placeholder="Search location"
+              size="large"
+              prefix={<SearchOutlined />}
+              suffix={
+                <AimOutlined
+                  style={{ cursor: "pointer" }}
+                  onClick={fetchLocation}
+                />
+              }
+              value={searchTerm}
+            />
+          </AutoComplete>
+        </div>
+        <div className={styles.weatherContainer}>
+          {weatherData && <CurrentWeather weather={weatherData} />}
+        </div>
       </main>
     </>
   );

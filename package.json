@@ -23,6 +23,7 @@
     "typescript": "5.0.2"
   },
   "devDependencies": {
+    "@svgr/webpack": "^7.0.0",
     "@types/lodash": "^4.14.192"
   }
 }

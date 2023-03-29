@@ -17,7 +17,7 @@ body {
     -webkit-box-pack: center;
     justify-content: center;
     min-height: 100vh;
-    background-image: url("/weather.jpg");
+    background: linear-gradient(#F9FFFF 0%, #38C8E6 100%);
     background-size: cover;
     background-repeat: no-repeat;
 }

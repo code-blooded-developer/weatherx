@@ -5,7 +5,7 @@ interface ITemperatureProps {
 const Temperature: React.FC<ITemperatureProps> = (props) => {
   return (
     <>
-      {Math.round(props.value)}
+      {props.value}
       <sup>&deg;</sup>
     </>
   );

@@ -35,12 +35,12 @@ const CurrentWeather: React.FC<ICurrentWeatherProps> = ({
           <CurrentWeatherStatus>
             <h4>{weather.name}</h4>
             <div style={{ display: "flex", alignItems: "center" }}>
-              <WeatherIcon code={weather.weather[0].id} big />
+              <WeatherIcon code={weather.weather.id} big />
               <span>
                 <Temperature value={weather.main.temp} />
               </span>
             </div>
-            <h6>{weather.weather[0].description}</h6>
+            <h6>{weather.weather.description}</h6>
           </CurrentWeatherStatus>
           <CurrentWeatherInfo>
             <FeelsLike>

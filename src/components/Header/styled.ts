@@ -8,8 +8,8 @@ export const HeaderContainer = styled.header`
 `;
 
 export const Title = styled.h1`
+  color: ${({ theme }) => theme.appTitleColor};
   font-size: 2.2rem;
-  color: #2e5d89;
 `;
 
 export const HeaderIconsContainer = styled.div`

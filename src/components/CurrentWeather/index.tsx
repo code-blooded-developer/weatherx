@@ -1,5 +1,3 @@
-import { Card } from "antd";
-
 import WeatherIcon from "../WeatherIcon";
 import Temperature from "../Temperature";
 
@@ -10,6 +8,8 @@ import PressureIcon from "@/assets/pressure-icon.svg";
 import WindIcon from "@/assets/wind-icon.svg";
 
 import {
+  WeatherContainer,
+  SectionTitle,
   CurrentWeatherContainer,
   CurrentWeatherStatus,
   CurrentWeatherInfo,
@@ -29,7 +29,10 @@ const CurrentWeather: React.FC<ICurrentWeatherProps> = ({
   loading,
 }) => {
   return (
-    <Card title="Current Weather" loading={loading}>
+    <WeatherContainer>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <SectionTitle>Current Weather</SectionTitle>
+      </div>
       {weather && (
         <CurrentWeatherContainer>
           <CurrentWeatherStatus>
@@ -79,7 +82,7 @@ const CurrentWeather: React.FC<ICurrentWeatherProps> = ({
           </CurrentWeatherInfo>
         </CurrentWeatherContainer>
       )}
-    </Card>
+    </WeatherContainer>
   );
 };
 

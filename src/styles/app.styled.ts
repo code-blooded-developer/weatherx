@@ -1,5 +1,11 @@
 import { createGlobalStyle } from "styled-components";
 
+import { Theme } from "./theme";
+
+declare module "styled-components" {
+  export interface DefaultTheme extends Theme {}
+}
+
 export const GlobalStyles = createGlobalStyle`
 *,
 *::before,
@@ -17,9 +23,9 @@ body {
     -webkit-box-pack: center;
     justify-content: center;
     min-height: 100vh;
-    background: linear-gradient(#F9FFFF 0%, #38C8E6 100%);
-    background-size: cover;
-    background-repeat: no-repeat;
+    background: linear-gradient(${({ theme }) =>
+      theme.backgroundGradient.color1} 0%, ${({ theme }) =>
+  theme.backgroundGradient.color2} 100%)
 }
 #__next {
     max-width: 960px;

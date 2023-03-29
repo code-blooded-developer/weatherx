@@ -1,5 +1,20 @@
 import styled from "styled-components";
 
+export const WeatherContainer = styled.div`
+  background-color: ${({ theme }) => theme.panelBgColor};
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const SectionTitle = styled.h6`
+  font-weight: 500;
+  font-size: 1.125rem;
+  color: ${({ theme }) => theme.panelTitleColor};
+`;
+
 export const CurrentWeatherContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
@@ -56,7 +71,7 @@ export const WeatherDegree = styled.div`
   color: #3a86ca;
   margin-right: 2.5rem;
   svg {
-    fill: #a1b9ce;
+    fill: ${({ theme }) => theme.smallIconColor};
     margin-right: 1rem;
   }
 `;
@@ -67,13 +82,13 @@ export const InfoRow = styled.div`
   margin-bottom: 0.6rem;
   div {
     display: flex;
-    color: #a1b9ce;
+    color: ${({ theme }) => theme.smallIconTextColor};
     align-items: center;
     font-size: 1rem;
     width: 8rem;
   }
   svg {
-    fill: #a1b9ce;
+    fill: ${({ theme }) => theme.smallIconColor};
     margin-right: 1rem;
     width: 1.6rem;
     margin-left: -0.3rem;

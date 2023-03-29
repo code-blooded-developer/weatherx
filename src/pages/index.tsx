@@ -17,7 +17,12 @@ import { SearchBarContainer } from "@/styles/styled";
 import "antd/dist/reset.css";
 import { WeatherData } from "@/types/weather";
 
-export default function Home() {
+interface IHomeProps {
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
+}
+
+const Home: React.FC<IHomeProps> = ({ isDarkMode, toggleDarkMode }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [weatherData, setWeatherData] = useState<WeatherData>();
   const [places, setPlaces] = useState<SelectProps<object>["options"]>([]);
@@ -81,7 +86,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
+      <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
       <SearchBarContainer>
         <AutoComplete
           dropdownMatchSelectWidth={252}
@@ -111,4 +116,6 @@ export default function Home() {
       </div>
     </>
   );
-}
+};
+
+export default Home;

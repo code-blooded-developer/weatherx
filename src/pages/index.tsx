@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { Input, AutoComplete } from "antd";
-import { SearchOutlined, AimOutlined } from "@ant-design/icons";
+import { AutoComplete } from "antd";
 import type { SelectProps } from "antd/es/select";
 import Head from "next/head";
 
@@ -12,10 +11,16 @@ import { fetchCities } from "@/services/cities";
 import CurrentWeather from "@/components/CurrentWeather";
 import Header from "@/components/Header";
 
-import { SearchBarContainer } from "@/styles/styled";
+import {
+  SearchBarContainer,
+  StyledSearchOutlined,
+  StyledAimOutlined,
+  StyledInput,
+} from "@/styles/styled";
+
+import { WeatherData } from "@/types/weather";
 
 import "antd/dist/reset.css";
-import { WeatherData } from "@/types/weather";
 
 interface IHomeProps {
   isDarkMode: boolean;
@@ -95,16 +100,11 @@ const Home: React.FC<IHomeProps> = ({ isDarkMode, toggleDarkMode }) => {
           onSearch={onCityChange}
           onSelect={onCitySelect}
         >
-          <Input
+          <StyledInput
             placeholder="Search location"
             size="large"
-            prefix={<SearchOutlined />}
-            suffix={
-              <AimOutlined
-                style={{ cursor: "pointer" }}
-                onClick={fetchLocation}
-              />
-            }
+            prefix={<StyledSearchOutlined />}
+            suffix={<StyledAimOutlined onClick={fetchLocation} />}
             value={searchTerm}
           />
         </AutoComplete>

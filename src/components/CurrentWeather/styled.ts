@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Switch } from "antd";
 
 export const WeatherContainer = styled.div`
   background-color: ${({ theme }) => theme.panelBgColor};
@@ -97,5 +98,15 @@ export const InfoRow = styled.div`
     color: #3080c8;
     font-weight: 500;
     font-size: 1rem;
+  }
+`;
+
+export const TempSwitch = styled(Switch)`
+  background-color: ${({ theme }) =>
+    theme.temperatureSwitch.backgroundColor} !important;
+  span {
+    span {
+      color: ${({ theme }) => theme.temperatureSwitch.textColor} !important;
+    }
   }
 `;

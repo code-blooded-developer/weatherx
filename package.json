@@ -27,7 +27,6 @@
   "devDependencies": {
     "@svgr/webpack": "^7.0.0",
     "@types/lodash": "^4.14.192",
-    "@types/styled-components": "^5.1.26",
-    "babel-plugin-styled-components": "^2.0.7"
+    "@types/styled-components": "^5.1.26"
   }
 }

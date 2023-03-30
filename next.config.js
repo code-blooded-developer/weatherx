@@ -10,6 +10,9 @@ const nextConfig = {
     return config
   },
   reactStrictMode: true,
+  compiler: {
+    styledComponents: true
+  }
 }
 
 module.exports = nextConfig

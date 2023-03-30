@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import SearchBar from "@/components/SearchBar";
 import CurrentWeather from "@/components/CurrentWeather";
 import Forecast from "@/components/Forecast";
+import Footer from "@/components/Footer";
 
 import { AppStore } from "@/store/store";
 
@@ -42,6 +43,7 @@ const Home: React.FC = () => {
           <SearchBar />
           <CurrentWeather />
           {/* <Forecast /> */}
+          <Footer />
         </>
       )}
     </>

@@ -1,11 +1,5 @@
-import WeatherIcon from "../WeatherIcon";
-import Temperature from "../Temperature";
-
-import HighIcon from "@/assets/high-icon.svg";
-import LowIcon from "@/assets/low-icon.svg";
-import HumidityIcon from "@/assets/humidity-icon.svg";
-import PressureIcon from "@/assets/pressure-icon.svg";
-import WindIcon from "@/assets/wind-icon.svg";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 import {
   WeatherContainer,
@@ -19,15 +13,32 @@ import {
   InfoRow,
 } from "./styled";
 
-interface ICurrentWeatherProps {
-  weather: any;
-  loading: boolean;
-}
+import WeatherIcon from "../WeatherIcon";
+import Temperature from "../Temperature";
 
-const CurrentWeather: React.FC<ICurrentWeatherProps> = ({
-  weather,
-  loading,
-}) => {
+import { AppStore } from "@/store/store";
+
+import HighIcon from "@/assets/high-icon.svg";
+import LowIcon from "@/assets/low-icon.svg";
+import HumidityIcon from "@/assets/humidity-icon.svg";
+import PressureIcon from "@/assets/pressure-icon.svg";
+import WindIcon from "@/assets/wind-icon.svg";
+
+const CurrentWeather: React.FC = () => {
+  const { weather, isInitial, isError } = useSelector((store: AppStore) => ({
+    weather: store.weather.weatherData,
+    isInitial: store.app.isInitial,
+    isError: store.weather.isError,
+  }));
+
+  useEffect(() => {
+    if (isError) {
+      console.log("Cannot load weather for this place");
+    }
+  }, [isError]);
+
+  if (isInitial) return <></>;
+
   return (
     <WeatherContainer>
       <div style={{ display: "flex", justifyContent: "space-between" }}>

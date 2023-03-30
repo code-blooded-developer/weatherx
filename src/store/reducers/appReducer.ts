@@ -7,13 +7,15 @@ const DARK_MODE_LABEL = "weatherxDarkMode";
 export interface IAppState {
   tempUnit: TempUnit;
   isLoading: boolean;
+  isInitial: boolean;
   darkMode: boolean;
 }
 
 const initialState: IAppState = {
   tempUnit: TempUnit.CELCIUS,
   isLoading: false,
-  darkMode: false,
+  isInitial: true,
+  darkMode: new Date().getHours() > 18 || false,
 };
 
 const appSlice = createSlice({
@@ -32,9 +34,12 @@ const appSlice = createSlice({
     setIsLoading: (state: IAppState, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
+    setIsInitial: (state: IAppState, action: PayloadAction<boolean>) => {
+      state.isInitial = action.payload;
+    },
   },
 });
 
-export const { changeTempUnit, toggleDarkMode, setIsLoading } =
+export const { changeTempUnit, toggleDarkMode, setIsLoading, setIsInitial } =
   appSlice.actions;
 export default appSlice.reducer;

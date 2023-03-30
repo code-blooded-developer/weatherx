@@ -1,7 +1,7 @@
 import DarkModeToggle from "react-dark-mode-toggle";
 import { useDispatch, useSelector } from "react-redux";
 
-import { AppStore } from "@/store/store";
+import { AppStore, AppDispatch } from "@/store/store";
 import { toggleDarkMode } from "@/store/reducers/appReducer";
 import GithubIcon from "@/assets/github.svg";
 
@@ -13,7 +13,7 @@ import {
 } from "./styled";
 
 const Header: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const isDarkMode = useSelector((state: AppStore) => state.app.darkMode);
 
   return (

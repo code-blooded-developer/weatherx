@@ -24,3 +24,15 @@ export type WeatherData = {
   };
   name: string;
 };
+
+export type ExtendedForecastData = {
+  day: string;
+  temp: {
+    temp_min: number;
+    temp_max: number;
+  };
+  weather: {
+    id: number;
+    main: string;
+  };
+};

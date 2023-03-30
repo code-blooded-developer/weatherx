@@ -1,6 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { WeatherData } from "@/types/weather";
-import { fetchWeatherData } from "@/services/weather";
+import { ExtendedForecastData, WeatherData } from "@/types/weather";
+import {
+  fetchExtendedForecastData,
+  fetchWeatherData,
+} from "@/services/weather";
+import { getNextSevenDays } from "../utils/dateUtils";
 import { setIsLoading, setIsInitial } from "./reducers/appReducer";
 
 export const fetchWeather = createAsyncThunk(
@@ -12,12 +16,17 @@ export const fetchWeather = createAsyncThunk(
     dispatch(setIsLoading(true));
 
     try {
-      const res = await fetchWeatherData(city);
-      if (res.cod === 200) {
+      const res = await Promise.all([
+        fetchWeatherData(city),
+        fetchExtendedForecastData(city),
+      ]);
+      dispatch(setIsLoading(false));
+
+      if (res[0].cod === 200) {
         dispatch(setIsInitial(false));
         return res;
       }
-      return rejectWithValue(res.message);
+      return rejectWithValue(res[0].message);
     } catch {
       return rejectWithValue("Error");
     } finally {
@@ -26,10 +35,16 @@ export const fetchWeather = createAsyncThunk(
   }
 );
 
-export const transformWeatherData = (res: any): WeatherData => {
-  const weather = res as WeatherData;
+export const transformWeatherData = (
+  res: any
+): {
+  weather: WeatherData;
+  forecast: ExtendedForecastData[];
+} => {
+  const weather = res[0] as WeatherData;
+  const forecast: ExtendedForecastData[] = [];
 
-  weather.weather = res.weather[0];
+  weather.weather = res[0].weather[0];
   weather.main = {
     ...weather.main,
     temp: Math.round(weather.main.temp),
@@ -39,5 +54,24 @@ export const transformWeatherData = (res: any): WeatherData => {
   };
   weather.wind.speed = Math.round(weather.wind.speed * 3.6);
 
-  return weather;
+  const next7Days = getNextSevenDays();
+
+  res[1].list.forEach((i: any, index: number) => {
+    forecast.push({
+      day: next7Days[index],
+      temp: {
+        temp_max: i.temp.max,
+        temp_min: i.temp.min,
+      },
+      weather: {
+        id: i.weather[0].id,
+        main: i.weather[0].main,
+      },
+    });
+  });
+
+  return {
+    weather,
+    forecast,
+  };
 };

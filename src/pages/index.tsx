@@ -3,9 +3,10 @@ import { Spin } from "antd";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
-import CurrentWeather from "@/components/CurrentWeather";
 import Header from "@/components/Header";
 import SearchBar from "@/components/SearchBar";
+import CurrentWeather from "@/components/CurrentWeather";
+import Forecast from "@/components/Forecast";
 
 import { AppStore } from "@/store/store";
 
@@ -40,6 +41,7 @@ const Home: React.FC = () => {
           <Header />
           <SearchBar />
           <CurrentWeather />
+          <Forecast />
         </>
       )}
     </>

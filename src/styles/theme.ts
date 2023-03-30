@@ -13,7 +13,6 @@ export interface Theme {
   };
   temperatureSwitch: {
     backgroundColor: string;
-    sliderColor: string;
     textColor: string;
   };
   searchSuggestion: {
@@ -40,7 +39,6 @@ export const lightTheme: Theme = {
   },
   temperatureSwitch: {
     backgroundColor: "#77b1c7",
-    sliderColor: "#fff",
     textColor: "#fff",
   },
   searchSuggestion: {
@@ -67,7 +65,6 @@ export const darkTheme: Theme = {
   },
   temperatureSwitch: {
     backgroundColor: "#1b3657",
-    sliderColor: "#437abd",
     textColor: "#718cac",
   },
   searchSuggestion: {

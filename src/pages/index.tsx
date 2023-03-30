@@ -41,7 +41,7 @@ const Home: React.FC = () => {
           <Header />
           <SearchBar />
           <CurrentWeather />
-          <Forecast />
+          {/* <Forecast /> */}
         </>
       )}
     </>

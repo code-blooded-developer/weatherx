@@ -18,7 +18,8 @@ export const fetchWeather = createAsyncThunk(
     try {
       const res = await Promise.all([
         fetchWeatherData(city),
-        fetchExtendedForecastData(city),
+        // fetchExtendedForecastData(city),
+        { list: [] },
       ]);
       dispatch(setIsLoading(false));
 

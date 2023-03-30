@@ -22,12 +22,7 @@ import { WeatherData } from "@/types/weather";
 
 import "antd/dist/reset.css";
 
-interface IHomeProps {
-  isDarkMode: boolean;
-  toggleDarkMode: () => void;
-}
-
-const Home: React.FC<IHomeProps> = ({ isDarkMode, toggleDarkMode }) => {
+const Home: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [weatherData, setWeatherData] = useState<WeatherData>();
   const [places, setPlaces] = useState<SelectProps<object>["options"]>([]);
@@ -91,7 +86,7 @@ const Home: React.FC<IHomeProps> = ({ isDarkMode, toggleDarkMode }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+      <Header />
       <SearchBarContainer>
         <AutoComplete
           dropdownMatchSelectWidth={252}

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useSelector } from "react-redux";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "styled-components";
@@ -9,8 +8,6 @@ import { GlobalStyles } from "@/styles/app.styled";
 import { darkTheme, lightTheme } from "@/styles/theme";
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [isDarkMode, toggleDarkMode] = useState(false);
-
   return (
     <Provider store={store}>
       <ThemedComponent Component={Component} pageProps={pageProps} />

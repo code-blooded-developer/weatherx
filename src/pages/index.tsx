@@ -11,8 +11,6 @@ import Footer from "@/components/Footer";
 
 import { AppStore } from "@/store/store";
 
-import "antd/dist/reset.css";
-
 const Spinner = styled(Spin)`
   display: flex;
   justify-content: center;

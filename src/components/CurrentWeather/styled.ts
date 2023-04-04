@@ -19,6 +19,7 @@ export const SectionTitle = styled.h6`
 export const CurrentWeatherContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
+  flex-wrap: wrap;
 `;
 
 export const CurrentWeatherStatus = styled.div`
